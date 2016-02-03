@@ -19,6 +19,7 @@ class SurveyInviter
     @message = attributes[:message] || ''
     @recipients = attributes[:recipients] || ''
     @sender = attributes[:sender]
+    @recipient_parser = RecipientParser.new
   end
 
   attr_reader :message, :recipients, :survey
@@ -58,6 +59,6 @@ class SurveyInviter
   end
 
   def recipient_list
-    @recipient_list ||= @recipients.gsub(/\s+/, '').split(/[\n,;]+/)
+    @recipient_list ||= @recipient_parser.parse(@recipients)
   end
 end
